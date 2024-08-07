@@ -2,3 +2,5 @@ matplotlib
 sumolib
 pandas
 numpy
+CaGeo
+geolet-reloaded
