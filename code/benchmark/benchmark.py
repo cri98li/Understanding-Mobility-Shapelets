@@ -1,5 +1,7 @@
 import pandas as pd
 from glob import glob
+
+from sklearn.cluster import KMeans
 from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
@@ -11,6 +13,8 @@ from geoletrld.utils import Trajectories, y_from_df
 from geoletrld.partitioners import NoPartitioner, GeohashPartitioner, FeaturePartitioner, SlidingWindowPartitioner
 from geoletrld.distances import (EuclideanDistance, InterpolatedTimeDistance, LCSSTrajectoryDistance, FrechetDistance,
                                  CaGeoDistance, MatchComputeDistance)
+from sklearn_extra.cluster import KMedoids
+
 
 def benchmark(df: pd.DataFrame):
     df = df[["tid", "y", "time", "lat", "lon"]]
@@ -25,18 +29,18 @@ def benchmark(df: pd.DataFrame):
     X_test = Trajectories([(k, trajectories[k]) for k in X_test])
 
     classifier = Geolet(
-        partitioner=NoPartitioner(),
+        partitioner=SlidingWindowPartitioner(window_size=50),
         selector=SelectorPipeline(
-            MutualInformationSelector(n_jobs=8, k=1, distance=InterpolatedTimeDistance(n_jobs=-1)),
-            # GapSelector(k=5, n_jobs=10, distance=MatchComputeDistance(EuclideanDistance.best_fitting, LCSSTrajectoryDistance.best_fitting)),
-            # ClusteringSelector(
-            # KMeans(n_clusters=5), #è sbagliato?, ma funziona stranamente bene
-            # KMedoids(n_clusters=30, metric='precomputed'),# n_jobs=9
+            # MutualInformationSelector(n_jobs=8, k=10, distance=InterpolatedTimeDistance(n_jobs=8)),
+            # GapSelector(k=10, n_jobs=10, distance=MatchComputeDistance(EuclideanDistance(), LCSSTrajectoryDistance())),
+             ClusteringSelector(
+             #KMeans(n_clusters=5), #è sbagliato?, ma funziona stranamente bene
+             KMedoids(n_clusters=3, metric='precomputed'),# n_jobs=9
             # AffinityPropagation(affinity="precomputed"), agg=lambda x: -np.sum(x),
             # OPTICS(metric="precomputed"),
             # SpectralClustering(affinity="precomputed"), agg=lambda x: -np.sum(x), #non gira
             # distance=LCSSTrajectoryDistance(n_jobs=10, verbose=True)
-            # )
+             )
         ),
         distance=InterpolatedTimeDistance(n_jobs=8),
         model_to_fit=RandomForestClassifier(n_estimators=500, class_weight="balanced", random_state=32),
@@ -47,12 +51,17 @@ def benchmark(df: pd.DataFrame):
     print(classification_report(y_test, y_pred))
 
 def main():
-    for filename in glob("../../data/*"):
-        experiment_name = filename.split("/")[-1].split("\\")[-1].split(".")[0]
-        df = pd.read_csv(filename)
-        print(experiment_name)
-        benchmark(df)
-        print()
+    files = glob("../../data/*")
+    #files = ["../../data/simple_yao.zip"]
+    for filename in files:
+        try:
+            experiment_name = filename.split("/")[-1].split("\\")[-1].split(".")[0]
+            df = pd.read_csv(filename)
+            print(experiment_name)
+            benchmark(df)
+            print()
+        except Exception as e:
+            print(e)
 
 if __name__ == '__main__':
     main()

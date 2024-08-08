@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from generative_fun import generate_trajectory_shape
+from generative_fun import generate_trajectory_shape, yao_et_al_2017_sim_data
 
 
 def prepare_data_shape(n_trj_per_shape, shapes: list = None):
@@ -71,7 +71,7 @@ def prepare_data_time(n_trj_per_shape, shapes: list = None):
 
         trajectories[i][:, -2] *= 1 if i < len(trajectories) / 2 else 5
 
-    df = pd.DataFrame(np.vstack(trajectories), columns=["y", "lat", "lon", "time", "tid"])
+    df = pd.DataFrame(np.vstack(trajectories), columns=["y", "time", "lat", "lon", "tid"])
 
     y_rename = [
         "fast",
@@ -130,10 +130,24 @@ def prepare_data_shape_time(n_trj_per_shape, shapes: list = None):
     })
 
 
+def prepare_data_yao_et_al_2017_sim_data(n_sample=100):
+    arr = yao_et_al_2017_sim_data(n_sample=n_sample)
+
+    df = pd.DataFrame(arr, columns=["time", "lat", "lon", "y", "tid"]).infer_objects()
+    df.time = df.time.apply(lambda x: round(float(x)))
+
+    return df.astype({
+        "lat": np.float_,
+        "lon": np.float_,
+        "time": np.int_,
+        "tid": np.int_,
+    })
+
+
 def plot_data(df, trj_for_class=2):
     for y in df.y.unique():
         for tid in df[df.y == y].tid.unique()[:trj_for_class]:
-            plt.plot(df[df.tid == tid].lat, df[df.tid == tid].lon, label=tid)
+            plt.plot(df[df.tid == tid].lat.tolist(), df[df.tid == tid].lon.tolist(), label=f"{tid}_{y}")
 
     plt.legend()
     plt.show()
@@ -141,16 +155,20 @@ def plot_data(df, trj_for_class=2):
 
 def main():
     df = prepare_data_shape(100)
-    plot_data(df)
+    #plot_data(df)
     df.to_csv("../../data/simple_shape.zip", index=False)
 
     df = prepare_data_time(100)
-    plot_data(df)
+    #plot_data(df)
     df.to_csv("../../data/simple_time.zip", index=False)
 
     df = prepare_data_shape_time(50)
-    plot_data(df)
+    #plot_data(df)
     df.to_csv("../../data/simple_shape_time.zip", index=False)
+
+    df = prepare_data_yao_et_al_2017_sim_data()
+    plot_data(df)
+    df.to_csv("../../data/simple_yao.zip", index=False)
 
 
 if __name__ == '__main__':
