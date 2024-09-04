@@ -155,15 +155,15 @@ def plot_data(df, trj_for_class=2):
 
 def main():
     df = prepare_data_shape(100)
-    #plot_data(df)
+    plot_data(df)
     df.to_csv("../../data/simple_shape.zip", index=False)
 
     df = prepare_data_time(100)
-    #plot_data(df)
+    plot_data(df)
     df.to_csv("../../data/simple_time.zip", index=False)
 
     df = prepare_data_shape_time(50)
-    #plot_data(df)
+    plot_data(df)
     df.to_csv("../../data/simple_shape_time.zip", index=False)
 
     df = prepare_data_yao_et_al_2017_sim_data()

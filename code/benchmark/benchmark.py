@@ -31,16 +31,16 @@ def benchmark(df: pd.DataFrame):
     classifier = Geolet(
         partitioner=SlidingWindowPartitioner(window_size=50),
         selector=SelectorPipeline(
-            # MutualInformationSelector(n_jobs=8, k=10, distance=InterpolatedTimeDistance(n_jobs=8)),
+            MutualInformationSelector(n_jobs=8, k=10, distance=InterpolatedTimeDistance(n_jobs=8)),
             # GapSelector(k=10, n_jobs=10, distance=MatchComputeDistance(EuclideanDistance(), LCSSTrajectoryDistance())),
-             ClusteringSelector(
+             #ClusteringSelector(
              #KMeans(n_clusters=5), #è sbagliato?, ma funziona stranamente bene
-             KMedoids(n_clusters=3, metric='precomputed'),# n_jobs=9
+             #KMedoids(n_clusters=3, metric='precomputed'),# n_jobs=9
             # AffinityPropagation(affinity="precomputed"), agg=lambda x: -np.sum(x),
             # OPTICS(metric="precomputed"),
             # SpectralClustering(affinity="precomputed"), agg=lambda x: -np.sum(x), #non gira
             # distance=LCSSTrajectoryDistance(n_jobs=10, verbose=True)
-             )
+             #)
         ),
         distance=InterpolatedTimeDistance(n_jobs=8),
         model_to_fit=RandomForestClassifier(n_estimators=500, class_weight="balanced", random_state=32),
