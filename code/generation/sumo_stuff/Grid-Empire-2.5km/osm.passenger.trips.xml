@@ -54,7 +54,11 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="veh_passenger" vClass="passenger"/>
+    <vType id="my_passenger" vClass="passenger"/>
+    <vType id="my_bicycle" vClass="bicycle"/>
+
+    <vTypeDistribution id="veh_passenger" vTypes="my_bicycle my_passenger"/>
+
     <trip id="veh0" type="veh_passenger" depart="0.00" departLane="best" from="46525058#1" to="-420872197#1"/>
     <trip id="veh1" type="veh_passenger" depart="0.69" departLane="best" from="194923794#1" to="125479721#1"/>
     <trip id="veh3" type="veh_passenger" depart="2.08" departLane="best" from="814278018#4" to="1025734020#1"/>
