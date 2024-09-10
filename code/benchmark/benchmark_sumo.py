@@ -37,7 +37,7 @@ hyperparams = {
     ],
     "dist": [
         "ED_mean", "ED",
-        #"ITD_mean", "ITD"
+        "ITD_mean", "ITD"
     ],
 }
 
