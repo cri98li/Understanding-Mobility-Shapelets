@@ -83,6 +83,7 @@ def benchmark(df_base: pd.DataFrame, path_base="results/", dataset_name=""):
     df0 = df_base[["tid", "y", "time", "lat", "lon"]]
 
     for trj_class in tqdm(hyperparams["trj_class"], position=1, leave=False, desc="trj_per_class"):
+        random.seed(42)
         df = undersample(df0, trj_class)
 
         trajectories = Trajectories.from_DataFrame(df, latitude="lat", longitude="lon", time="time")
