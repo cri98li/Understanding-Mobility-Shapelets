@@ -67,6 +67,9 @@ if __name__ == "__main__":
     }
 
     for model_path in tqdm(glob('results/final_models/*.pkl'), position=0, leave=False):
+        if origin_dataset_name not in datasets:
+            continue
+
         geo = pickle.load(open(model_path, 'rb'))
         origin_dataset_name = model_path.split("/")[-1].split("|")[0]
         source_X_train, source_X_test, source_y_train, source_y_test = datasets[origin_dataset_name]
