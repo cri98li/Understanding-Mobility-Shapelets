@@ -20,10 +20,10 @@ def prepare_data_shape(n_trj_per_shape, shapes: list = None):
         for i in range(n_trj_per_shape):
             trj = np.hstack([np.ones((100, 1)) * shape_idx,
                              generate_trajectory_shape(n_steps=100,
-                                                       smoothness=20,
+                                                       smoothness=10,
                                                        turning_angle=shape,
                                                        step_size=0.1,
-                                                       noise_weight=.2)])
+                                                       noise_weight=5)])
             trajectories.append(trj)
 
     for i in range(len(trajectories)):
@@ -57,10 +57,10 @@ def prepare_data_time(n_trj_per_shape, shapes: list = None):
         for i in range(n_trj_per_shape):
             trj = np.hstack([np.ones((100, 1)) * shape_idx,
                              generate_trajectory_shape(n_steps=100,
-                                                       smoothness=20,
+                                                       smoothness=10,
                                                        turning_angle=shape,
                                                        step_size=0.1,
-                                                       noise_weight=.2)])
+                                                       noise_weight=5)])
             trajectories.append(trj)
 
     for i in range(len(trajectories)):
@@ -100,10 +100,10 @@ def prepare_data_shape_time(n_trj_per_shape, shapes: list = None):
         for i in range(n_trj_per_shape):
             trj = np.hstack([np.ones((100, 1)) * shape_idx,
                              generate_trajectory_shape(n_steps=100,
-                                                       smoothness=20,
+                                                       smoothness=10,
                                                        turning_angle=shape,
                                                        step_size=0.1,
-                                                       noise_weight=.2)])
+                                                       noise_weight=5)])
             trajectories.append(trj)
 
     for i in range(len(trajectories)):
