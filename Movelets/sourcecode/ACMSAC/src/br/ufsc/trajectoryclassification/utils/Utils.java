@@ -92,10 +92,6 @@ public class Utils {
 	}
 
 	public static double normalize(double value, double max) {
-		// Este método está preparado para que, se o valor max for negativo
-		// Ele não realiza a normalização. Assim, estes serão os valores por
-		// padrão
-		// Para as variáveis de max.
 		if (max < 0)
 			return value;
 		else if (value > max)

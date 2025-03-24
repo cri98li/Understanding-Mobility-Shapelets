@@ -62,7 +62,7 @@ public class MoveletsRun {
 				break;	
 
 			default:
-				System.err.println("Parâmetro " + key + " inválido.");
+				System.err.println("Parmetro " + key + " invlido.");
 				System.exit(1);
 				return;
 			}
@@ -99,9 +99,6 @@ public class MoveletsRun {
 	public static void main(String[] args) {
 
 		if (args.length == 0) return;
-		/*
-		 * STEP 1. Configura parâmetros de entrada
-		 */
 		configure(args);
 		System.out.println(showConfiguration());
 

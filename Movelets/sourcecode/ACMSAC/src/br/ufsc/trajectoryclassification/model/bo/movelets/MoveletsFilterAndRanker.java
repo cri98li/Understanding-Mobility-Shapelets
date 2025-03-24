@@ -167,15 +167,8 @@ public class MoveletsFilterAndRanker {
 	public static List<ISubtrajectory> getBestShapelets(List<ISubtrajectory> rankedCandidates,
 			double selfSimilarityProp) {
 
-		// Realiza o loop até que acabem os atributos ou até que atinga o número
-		// máximo de nBestShapelets
-		// Isso é importante porque vários candidatos bem rankeados podem ser
-		// selfsimilares com outros
-		// que tiveram melhor score;
 		for (int i = 0; (i < rankedCandidates.size()); i++) {
 
-			// Se a shapelet candidata tem score 0 então já termina o processo
-			// de busca
 			if (rankedCandidates.get(i).getQuality().hasZeroQuality())
 				return rankedCandidates.subList(0, i);
 

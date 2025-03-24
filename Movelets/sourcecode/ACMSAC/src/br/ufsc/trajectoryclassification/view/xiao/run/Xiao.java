@@ -51,7 +51,7 @@ public class Xiao {
 				thresholds[2] = Double.valueOf(value);
 				break;
 			default:
-				System.err.println("Parâmetro " + key + " inválido.");
+				System.err.println("Parï¿½metro " + key + " invï¿½lido.");
 				System.exit(1);
 				return;
 			}
@@ -94,9 +94,6 @@ public class Xiao {
 	public static void main(String[] args) {
 
 		if (args.length == 0) return;
-		/*
-		 * STEP 1. Configura parâmetros de entrada
-		 */
 		configure(args);
 		System.out.println(showConfiguration());
 		
@@ -109,11 +106,7 @@ public class Xiao {
 				new File(DESCRIPTION_FILE).getName());
 		
 		String resultDirPath = RESULT_DIR + "/Xiao/";
-		
-		/*
-		 * STEP 2. Configura os endereços onde estão os arquivos de dados e o
-		 * endereço de resultados
-		 */
+
 		String trainDirPath = CURRENT_DIR + "/train";
 		String testDirPath = CURRENT_DIR + "/test";
 						
@@ -121,7 +114,6 @@ public class Xiao {
 				
 		System.out.println("\nStarting...");
 				
-		/* Load description file and train and test trajectories */
 		Description description = trajectoryDAO.loadDescription(descriptionPathFile);
 		
 		List<ITrajectory> train = Utils.loadTrajectories(trainDirPath, description);

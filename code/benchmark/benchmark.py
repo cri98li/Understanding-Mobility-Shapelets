@@ -11,7 +11,7 @@ from geoletrld.selectors import RandomSelector, MutualInformationSelector, Selec
     GapSelector
 from geoletrld.utils import Trajectories, y_from_df
 from geoletrld.partitioners import NoPartitioner, GeohashPartitioner, FeaturePartitioner, SlidingWindowPartitioner
-from geoletrld.distances import (InterpolatedTimeDistance, InterpolatedTimeDistance, LCSSTrajectoryDistance, FrechetDistance,
+from geoletrld.distances import (EuclideanDistance, InterpolatedTimeDistance, LCSSTrajectoryDistance, FrechetDistance,
                                  CaGeoDistance, MatchComputeDistance)
 from sklearn_extra.cluster import KMedoids
 
@@ -32,7 +32,7 @@ def benchmark(df: pd.DataFrame):
         partitioner=SlidingWindowPartitioner(window_size=50),
         selector=SelectorPipeline(
             MutualInformationSelector(n_jobs=8, k=10, distance=InterpolatedTimeDistance(n_jobs=8)),
-            # GapSelector(k=10, n_jobs=10, distance=MatchComputeDistance(InterpolatedTimeDistance(), LCSSTrajectoryDistance())),
+            # GapSelector(k=10, n_jobs=10, distance=MatchComputeDistance(EuclideanDistance(), LCSSTrajectoryDistance())),
              #ClusteringSelector(
              #KMeans(n_clusters=5), #è sbagliato?, ma funziona stranamente bene
              #KMedoids(n_clusters=3, metric='precomputed'),# n_jobs=9

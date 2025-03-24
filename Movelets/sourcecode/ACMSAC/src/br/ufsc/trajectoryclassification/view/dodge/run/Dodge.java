@@ -41,7 +41,7 @@ public class Dodge {
 				break;
 
 			default:
-				System.err.println("Parâmetro " + key + " inválido.");
+				System.err.println("Parmetro " + key + " invlido.");
 				System.exit(1);
 				return;
 			}
@@ -74,9 +74,6 @@ public class Dodge {
 	public static void main(String[] args) {
 
 		if (args.length == 0) return;
-		/*
-		 * STEP 1. Configura parâmetros de entrada
-		 */
 		configure(args);
 		System.out.println(showConfiguration());
 		
@@ -86,11 +83,7 @@ public class Dodge {
 				new File(DESCRIPTION_FILE).getName());
 		
 		String resultDirPath = RESULT_DIR + "/Dodge/";
-		
-		/*
-		 * STEP 2. Configura os endereços onde estão os arquivos de dados e o
-		 * endereço de resultados
-		 */
+
 		String trainDirPath = CURRENT_DIR + "/train";
 		String testDirPath = CURRENT_DIR + "/test";
 				

@@ -50,7 +50,7 @@ public class Zheng {
 				thresholds[2] = Double.valueOf(value);
 				break;
 			default:
-				System.err.println("Parâmetro " + key + " inválido.");
+				System.err.println("Parmetro " + key + " invlido.");
 				System.exit(1);
 				return;
 			}
@@ -96,7 +96,7 @@ public class Zheng {
 
 		if (args.length == 0) return;
 		/*
-		 * STEP 1. Configura parâmetros de entrada
+		 * STEP 1. Configura parï¿½metros de entrada
 		 */
 		configure(args);
 		System.out.println(showConfiguration());
@@ -110,11 +110,7 @@ public class Zheng {
 				new File(DESCRIPTION_FILE).getName());
 		
 		String resultDirPath = RESULT_DIR + "/Zheng/";
-		
-		/*
-		 * STEP 2. Configura os endereços onde estão os arquivos de dados e o
-		 * endereço de resultados
-		 */
+
 		String trainDirPath = CURRENT_DIR + "/train";
 		String testDirPath = CURRENT_DIR + "/test";
 						
